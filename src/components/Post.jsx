@@ -1,10 +1,14 @@
-import React from 'react';
-import { formatDistanceToNow } from 'date-fns';
-import { tr } from 'date-fns/locale';
+import React from "react";
+import { formatDistanceToNow } from "date-fns";
+import { tr } from "date-fns/locale";
+import { useDispatch } from "react-redux";
+import { notSilAPI } from "../store/actions";
 
 export default function Post({ item }) {
+  const dispatch = useDispatch();
+
   function handleSil() {
-    // burada ilgili actionı dispatch et
+    dispatch(notSilAPI(item.id));
   }
 
   return (
@@ -16,7 +20,7 @@ export default function Post({ item }) {
         })}
       </h1>
 
-      {item.body.split('|').map((li) => (
+      {item.body.split("|").map((li) => (
         <p className="mt-2" key={li}>
           - {li}
         </p>
