@@ -69,7 +69,7 @@ export default function App() {
           </div>
         </Route>
       </Switch>
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer />
     </div>
   );
 }

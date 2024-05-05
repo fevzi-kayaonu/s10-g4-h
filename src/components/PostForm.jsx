@@ -20,7 +20,7 @@ export default function PostForm() {
   function onSubmit(data) {
     if (!isValid) return;
     dispatch(notEkleAPI(data));
-    history.push("/notlar");    
+    history.push("/notlar");
     // burada ilgili actionı dispatch et
     // tüm notlar sayfasına yönlendirin
   }

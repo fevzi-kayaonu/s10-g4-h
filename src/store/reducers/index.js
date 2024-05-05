@@ -18,7 +18,7 @@ function localStorageStateOku(key) {
 
 function baslangicNotlariniGetir(key) {
   const eskiNotlar = localStorage.getItem(key);
-
+  console.log("eskiNotlar", eskiNotlar);
   if (eskiNotlar !== null) {
     return localStorageStateOku(key);
   } else {
@@ -27,24 +27,32 @@ function baslangicNotlariniGetir(key) {
   }
 }
 
-const initalState = baslangicNotlariniGetir(s10chLocalStorageKey);
+const initialState = baslangicNotlariniGetir(s10chLocalStorageKey);
+console.log("initialState", initialState);
 
-const reducers = (state = initalState, action) => {
+const reducers = (state = { notlar: [] }, action) => {
+  // başlangıçta state neden undefined geliyor
   switch (action.type) {
     case NOTLARI_AL:
-      localStorageStateYaz(s10chLocalStorageKey, action.payload);
+      localStorageStateYaz(s10chLocalStorageKey, {
+        ...state,
+        notlar: [...action.payload],
+      });
       return { ...state, notlar: [...action.payload] };
     case NOT_EKLE:
-      localStorageStateYaz(s10chLocalStorageKey, action.payload);
-      return { ...state, notlar: [...state, action.payload] };
+      localStorageStateYaz(s10chLocalStorageKey, {
+        ...state,
+        notlar: [...state.notlar, action.payload],
+      });
+      return { ...state, notlar: [...state.notlar, action.payload] };
     case NOT_SIL:
-      localStorageStateYaz(
-        s10chLocalStorageKey,
-        state.notlar.filter((not) => not.id != action.payload)
-      );
+      localStorageStateYaz(s10chLocalStorageKey, {
+        ...state,
+        notlar: [...state.notlar.filter((not) => not.id !== action.payload)],
+      });
       return {
         ...state,
-        notlar: [...state.notlar.filter((not) => not.id != action.payload)],
+        notlar: [...state.notlar.filter((not) => not.id !== action.payload)],
       };
     default:
       return state;

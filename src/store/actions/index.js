@@ -22,10 +22,11 @@ export const notEkleAPI = (yeniNot) => (dispatch) => {
     .then((res) => {
       // res.data objesi içerisinden ihtiyaç duyduğun değeri bul ve oluşturduğun notEkle ile dispatch et (status codea dikkat)
       if (res.status === 201) {
-        dispatch(notEkle(res.data));
         toast.success(
-          "Notun başarıyla kaydedildi. Güzelliklerle dolu bir gün dileğiyle..."
+          "Notun başarıyla kaydedildi. Güzelliklerle dolu bir gün dileğiyle...",
+          { autoClose: 2000 }
         );
+        dispatch(notEkle(res.data));
       }
     })
     .catch((error) => console.log(error));
@@ -51,12 +52,12 @@ export const notSilAPI = (notId) => (dispatch) => {
     )
     .then((res) => {
       if (res.status === 200) {
-        toast.success("Notunuz silindi...");
         dispatch(notSil(notId));
+        toast.success("Notunuz silindi...", { autoClose: 2000 });
       }
     })
     .catch((error) => {
       console.log(error);
-      toast.warning("Bir hata oluştu!");
+      toast.warning("Bir hata oluştu!", { autoClose: 2000 });
     });
 };
